@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 import max6675
 import requests
 
-baseUrl = server["url"]
+baseUrl = "url"
 
 def calculateTemperature():
   cs = 15
