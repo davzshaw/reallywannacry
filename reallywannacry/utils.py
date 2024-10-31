@@ -1,17 +1,44 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import max6675
 import requests
-import base64
 from data import server
 
 baseUrl = server["url"]
 
-def fileToBase64(filePath: str) -> str:
+def calculateTemperature():
+  cs = 15
+  sck = 23
+  so = 21
+
+  max6675.set_pin(cs, sck, so, 1)
+  a = max6675.read_temp(cs)
+  max6675.time.sleep(2)
+  return a
+
+def sendEmail(to_address: str, subject: str, body: str) -> None:
+  smtp_server = "smtp.gmail.com"
+  smtp_port = 587
+  from_address = "soyudem@gmail.com"
+  password = "123gravedad456"
+
   try:
-    with open(filePath, "rb") as file:
-      base64String = base64.b64encode(file.read()).decode("utf-8")
-    return base64String
-  except Exception as e:
-    print(f"Error reading file {filePath}: {e}")
-    return ""
+    message = MIMEMultipart()
+    message["From"] = from_address
+    message["To"] = to_address
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "plain"))
+
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+      server.starttls()
+      server.login(from_address, password)
+      server.sendmail(from_address, to_address, message.as_string())
+      print(f"Email sent to {to_address}")
+  
+  except smtplib.SMTPException as e:
+    print(f"Error while sending email: {e}")
+
 
 def clearFiles() -> None:
   try:
@@ -53,5 +80,3 @@ def downloadSound() -> str:
   except requests.RequestException as e:
     print(f"Error downloading sound: {e}")
     return ""
-
-

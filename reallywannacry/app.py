@@ -1,6 +1,9 @@
-from utils import clearFiles, uploadSound, uploadTemperature, downloadSound, downloadTemperature, fileToBase64
+from utils import processAudioFiles, isCrying, calculateTemperature
 if __name__ == "__main__":
-  base64 = fileToBase64("sound.mp3")
-  print(base64)
-  del base64
+  sound = ["c1.wav"]
+  a, b, c, d = processAudioFiles(sound)
+  cry = isCrying(a, b, c, d)
+  temp = calculateTemperature()
+  print("Crying:", cry)
+  print("Temperature:", temp)
   

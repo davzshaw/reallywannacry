@@ -5,7 +5,6 @@ import time
 
 # Label: [1,4] ; 4: fast ; 1: slow
 
-# 3
 def calculateRms(audioPath):
   start = time.time()
   y, sr = librosa.load(audioPath, sr=22050)
@@ -13,7 +12,6 @@ def calculateRms(audioPath):
   print("Time taken for sound", round(time.time()-start,2))
   return float(np.mean(rms)), float(np.std(rms))
 
-# 1
 def calculateFundamentalFrequency(audioPath):
   start = time.time()
   y, sr = librosa.load(audioPath, sr=22050)
@@ -22,7 +20,6 @@ def calculateFundamentalFrequency(audioPath):
   print("Time taken for sound", round(time.time()-start,2))
   return float(np.mean(f0Filtered)), float(np.std(f0Filtered))
 
-# 2
 def calculatePitchModulation(audioPath):
   start = time.time()
   y, sr = librosa.load(audioPath, sr=22050)
@@ -32,7 +29,6 @@ def calculatePitchModulation(audioPath):
   print("Time taken for sound", round(time.time()-start,2))
   return float(np.mean(pitchModulation)), float(np.std(pitchModulation))
 
-# 4
 def calculateActiveSegmentDurations(audioPath):
   start = time.time()
   y, sr = librosa.load(audioPath, sr=22050)
