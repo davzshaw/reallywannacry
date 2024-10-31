@@ -3,7 +3,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import max6675
 import requests
-from data import server
 
 baseUrl = server["url"]
 
